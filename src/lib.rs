@@ -24,10 +24,11 @@
 //! }
 //!
 //! impl eframe::App for MyApp {
-//!     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+//!     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+//!         let ctx = ui.ctx().clone();
 //!         // Call paint once per frame before drawing any UI windows so the
 //!         // screensaver sits on the background layer behind everything else.
-//!         self.flame.paint(ctx);
+//!         self.flame.paint(&ctx);
 //!     }
 //! }
 //! ```
@@ -147,7 +148,14 @@ impl NoiseTexture {
 /// Evaluate the flame fragment shader for one pixel, given its position
 /// within a `buf_w` x `buf_h` buffer. Returns straight-through-premultiplied
 /// RGBA in `[0, 1]`, mirroring `gl_FragColor` at the end of the GLSL source.
-fn shade_pixel(noise: &NoiseTexture, buf_w: f32, buf_h: f32, px: f32, py: f32, time: f32) -> [f32; 4] {
+fn shade_pixel(
+    noise: &NoiseTexture,
+    buf_w: f32,
+    buf_h: f32,
+    px: f32,
+    py: f32,
+    time: f32,
+) -> [f32; 4] {
     let u = (px + 0.5) / buf_w;
     let v = (py + 0.5) / buf_h;
 
@@ -190,7 +198,12 @@ fn shade_pixel(noise: &NoiseTexture, buf_w: f32, buf_h: f32, px: f32, py: f32, t
     let blue_color = mix4([0.0, 0.0, 1.0, 0.0], col, 0.95);
     col = mix4(col, blue_color, blueflame);
 
-    col = [col[0] * flame, col[1] * flame, col[2] * flame, col[3] * flame];
+    col = [
+        col[0] * flame,
+        col[1] * flame,
+        col[2] * flame,
+        col[3] * flame,
+    ];
     col[3] = flame;
 
     let halo_size = 0.5;
@@ -274,7 +287,14 @@ impl FlameBackground {
 
         for py in 0..buf_h {
             for px in 0..buf_w {
-                let c = shade_pixel(&self.noise, buf_w as f32, buf_h as f32, px as f32, py as f32, self.time);
+                let c = shade_pixel(
+                    &self.noise,
+                    buf_w as f32,
+                    buf_h as f32,
+                    px as f32,
+                    py as f32,
+                    self.time,
+                );
                 self.pixels[py * buf_w + px] = Color32::from_rgba_premultiplied(
                     (c[0] * 255.0).round() as u8,
                     (c[1] * 255.0).round() as u8,
