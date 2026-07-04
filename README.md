@@ -1,3 +1,11 @@
+[![crates.io](https://img.shields.io/crates/v/egui-screensaver-flame.svg)](https://crates.io/crates/egui-screensaver-flame)
+[![docs.rs](https://docs.rs/egui-screensaver-flame/badge.svg)](https://docs.rs/egui-screensaver-flame)
+[![Rust version](https://img.shields.io/badge/rust-1.85%2B-orange.svg)](https://www.rust-lang.org)
+[![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](LICENSE-MIT)
+[![dependency status](https://deps.rs/repo/github/cecton/egui-screensaver-flame/status.svg)](https://deps.rs/repo/github/cecton/egui-screensaver-flame)
+[![CI](https://github.com/cecton/egui-screensaver-flame/actions/workflows/ci.yml/badge.svg)](https://github.com/cecton/egui-screensaver-flame/actions/workflows/ci.yml)
+[![demo](https://img.shields.io/badge/demo-live-blue)](https://cecton.github.io/egui-screensaver-flame/)
+
 # egui-screensaver-flame
 
 Flame screensaver for [egui](https://github.com/emilk/egui).
