@@ -8,9 +8,9 @@ fn main() -> eframe::Result {
     }
 
     impl eframe::App for App {
-        fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
             let ctx = ui.ctx().clone();
-            self.flame.paint(&ctx);
+            self.flame.paint(&ctx, frame.gl());
         }
     }
 

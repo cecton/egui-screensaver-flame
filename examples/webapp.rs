@@ -11,9 +11,9 @@ struct DemoApp {
 
 #[cfg(target_arch = "wasm32")]
 impl eframe::App for DemoApp {
-    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
-        self.screensaver.paint(&ctx);
+        self.screensaver.paint(&ctx, frame.gl());
     }
 }
 

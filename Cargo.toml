@@ -15,6 +15,9 @@ categories = ["gui", "graphics", "wasm", "visualization"]
 
 [dependencies]
 egui = { version = "0.34", default-features = false }
+egui_glow = "0.34"
+glow = "0.17"
+log = "0.4"
 
 [dev-dependencies]
 xtask-wasm = { version = "0.6.5", features = ["run-example", "wasm-opt"] }

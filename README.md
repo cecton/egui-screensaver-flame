@@ -7,10 +7,11 @@ A windswept fire rendered from a fractal-noise fragment shader, ported from
 itself adapting a shader by Shadertoy user
 [@kuvkar](https://www.shadertoy.com/view/4tXXRn).
 
-The original runs the shader on the GPU as a full-screen PixiJS filter. Here
-the same per-pixel math is evaluated on the CPU into a small downsampled
-buffer (sized to match the window's aspect ratio), then scaled up to fill the
-screen.
+Like the original, this runs the shader on the GPU — via an
+[`egui::PaintCallback`] through [`egui_glow`] — so the per-pixel math runs in
+parallel across the GPU's shader cores instead of serially on the CPU. This
+means the host `eframe::App` must use the `glow` rendering backend (not
+`wgpu`).
 
 ## Usage
 
@@ -21,7 +22,7 @@ Add the crate to your `Cargo.toml`:
 egui-screensaver-flame = "0.1"
 ```
 
-Then call `paint` every frame from your `eframe::App::update` implementation,
+Then call `paint` every frame from your `eframe::App::ui` implementation,
 before drawing any UI windows:
 
 ```rust
@@ -32,9 +33,9 @@ struct MyApp {
 }
 
 impl eframe::App for MyApp {
-    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
-        self.flame.paint(&ctx);
+        self.flame.paint(&ctx, frame.gl());
         // … rest of your UI …
     }
 }

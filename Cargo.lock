@@ -1208,6 +1208,9 @@ version = "0.1.0"
 dependencies = [
  "eframe",
  "egui",
+ "egui_glow",
+ "glow",
+ "log",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
