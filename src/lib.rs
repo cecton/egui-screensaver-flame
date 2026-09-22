@@ -282,19 +282,18 @@ pub struct FlameBackground {
     pub speed: f32,
 }
 
-impl Default for FlameBackground {
-    fn default() -> Self {
+impl FlameBackground {
+    /// Create a new flame state with the given user-settable parameters.
+    pub fn new(scale: f32, speed: f32) -> Self {
         Self {
             time: 0.0,
             last_time: None,
             gl_resources: None,
-            scale: 1.0,
-            speed: 1.0,
+            scale,
+            speed,
         }
     }
-}
 
-impl FlameBackground {
     /// Paint the screensaver onto the egui background layer for this frame.
     ///
     /// Call this once per frame **before** drawing any UI panels or windows

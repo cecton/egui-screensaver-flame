@@ -4,9 +4,17 @@ use egui_screensaver_flame::FlameBackground;
 use wasm_bindgen::JsCast;
 
 #[cfg(target_arch = "wasm32")]
-#[derive(Default)]
 struct DemoApp {
     screensaver: FlameBackground,
+}
+
+#[cfg(target_arch = "wasm32")]
+impl Default for DemoApp {
+    fn default() -> Self {
+        Self {
+            screensaver: FlameBackground::new(1.0, 1.0),
+        }
+    }
 }
 
 #[cfg(target_arch = "wasm32")]

@@ -2,9 +2,16 @@
 fn main() -> eframe::Result {
     use egui_screensaver_flame::FlameBackground;
 
-    #[derive(Default)]
     struct App {
         flame: FlameBackground,
+    }
+
+    impl Default for App {
+        fn default() -> Self {
+            Self {
+                flame: FlameBackground::new(1.0, 1.0),
+            }
+        }
     }
 
     impl eframe::App for App {
