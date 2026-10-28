@@ -21,7 +21,7 @@ impl Default for DemoApp {
 impl eframe::App for DemoApp {
     fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
-        self.screensaver.paint(&ctx, frame.gl());
+        self.screensaver.paint(&ctx, frame.wgpu_render_state());
     }
 }
 

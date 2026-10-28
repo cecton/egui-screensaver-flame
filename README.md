@@ -16,10 +16,10 @@ itself adapting a shader by Shadertoy user
 [@kuvkar](https://www.shadertoy.com/view/4tXXRn).
 
 Like the original, this runs the shader on the GPU — via an
-[`egui::PaintCallback`] through [`egui_glow`] — so the per-pixel math runs in
+[`egui::PaintCallback`] through [`egui_wgpu`] — so the per-pixel math runs in
 parallel across the GPU's shader cores instead of serially on the CPU. This
-means the host `eframe::App` must use the `glow` rendering backend (not
-`wgpu`).
+means the host `eframe::App` must use the `wgpu` rendering backend (not
+`glow`).
 
 ## Usage
 
@@ -27,7 +27,7 @@ Add the crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-egui-screensaver-flame = "0.1"
+egui-screensaver-flame = "0.5"
 ```
 
 Then call `paint` every frame from your `eframe::App::ui` implementation,
@@ -43,7 +43,7 @@ struct MyApp {
 impl eframe::App for MyApp {
     fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         let ctx = ui.ctx().clone();
-        self.flame.paint(&ctx, frame.gl());
+        self.flame.paint(&ctx, frame.wgpu_render_state());
         // … rest of your UI …
     }
 }
